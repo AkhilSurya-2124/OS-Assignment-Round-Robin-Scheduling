@@ -1,18 +1,19 @@
 #include<stdio.h>
 int main()
 {
-	int et=0;
-	int n,q;
-	int over =0;//n is number of processes, et is executed time , q is time quantum
+	int et=0;//et is executed time 
+	int n,q;// n is number of processes
+	//	   q is time quantum
+	int over =0;//used to specify if the given process is completed or not
 	printf("Enter number of processes: ");
 	scanf("%d",&n);
-	int a[n];
-	int b[n];
-	int process_turnaround[n];
-	int process_wait[n];
+	int a[n];// array containing arrival time 
+	int b[n];//array containing burst time
+	int process_turnaround[n];//turnaround time of a given process
+	int process_wait[n];//waiting  time of a given process
 	int i=0;
 	int wait=0,turnaround=0;//wait is waiting time and turnaround is turnaround time
-	int burst[n];
+	int burst[n];//to store burst time , used for calculations later
 	for ( i=0;i<n;i++)
 	{
 		printf("Enter arrival time of process %d :\t",i+1);
@@ -25,11 +26,11 @@ int main()
 	scanf("%d",&q);
 	int rem;//remaining processes
 	i=0;
-	rem=n;
+	rem=n;//to retain the value of umber of processes
 	printf("Order of executing :\n");
 	while(rem>0)//loop until all the processes are executed
 	{over=0;
-	if (a[i]>et){
+	if (a[i]>et){// only do processes which have been arrived at the current time
 		i++;
 		//printf("Executing %d now\n",i);
 	}
@@ -51,7 +52,7 @@ int main()
 			printf("P[%d]\t",i+1);
 			//printf("current time: %d\n process %d is over",et,i);
 		}
-		if (b[i]==0 && over==1)
+		if (b[i]==0 && over==1)//to check if the process is completed
 		{rem--;//decrease remaining processes by 1
 			wait=wait+et-burst[i]-a[i];
 			turnaround=turnaround+et-a[i];				
