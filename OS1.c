@@ -73,11 +73,11 @@ int main()
 		}
 		}
 }
-printf("\n\n\nProcess\t\tBurst Time\t\tWaiting Time\t\tTurnaround Time\n");
+printf("\n\n\nProcess\t\t Arrival Time\t\tBurst Time\t\tWaiting Time\t\tTurnaround Time\n");
 
 for (i=0;i<n;i++)
 {
-	printf("P[%d]\t\t   %d\t\t\t   %d\t\t\t     %d\n",i+1,burst[i],process_wait[i],process_turnaround[i]);
+	printf("P[%d]\t\t   %d\t\t\t     %d\t\t\t   %d\t\t\t     %d\n",i+1,a[i],burst[i],process_wait[i],process_turnaround[i]);
 }
 	float average_wait_time ;
 	average_wait_time= wait*1.0/n;
