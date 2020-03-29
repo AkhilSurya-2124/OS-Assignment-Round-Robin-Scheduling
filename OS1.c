@@ -107,7 +107,7 @@ printf("\n\n\nProcess\t\t Arrival Time\t\tBurst Time\t\tCompletion Time\t\tWaiti
 
 for (i=0;i<n;i++)
 {
-	printf("P[%d]\t\t   %d\t\t\t     %d\t\t\t   %d\t\t  %d\t\t\t     %d\n",i+1,a[i],burst[i],completion_time[i],process_wait[i],process_turnaround[i]);
+	printf("P[%d]\t\t   %d\t\t\t     %d\t\t\t   %d\t\t\t\t%d\t\t     %d\n",i+1,a[i],burst[i],completion_time[i],process_wait[i],process_turnaround[i]);
 }
 	float average_wait_time ;
 	average_wait_time= wait*1.0/n;
