@@ -7,37 +7,57 @@ int main()
 	int over =0;//used to specify if the given process is completed or not
 	printf("Enter number of processes:\t\t");
 	scanf("%d",&n);
+	int j=0;
+	int complete[n];//for process completion order
 	int a[n];// array containing arrival time 
 	int b[n];//array containing burst time
 	int process_turnaround[n];//turnaround time of a given process
 	int process_wait[n];//waiting  time of a given process
+	int comp[n]={0};
 	int i=0;
 	int wait=0,turnaround=0;//wait is waiting time and turnaround is turnaround time
 	int burst[n];//to store burst time , used for calculations later
-	for ( i=0;i<n;i++)
+	for ( i=0;i<n;i++)//for taking inputs
 	{	
 		
 		printf("\nEnter arrival time of process %d :\t",i+1);
 		scanf("%d",&a[i]);
-		printf("\n Enter  burst time of process %d :\t",i+1);
+		printf("\nEnter  burst time of process %d  :\t",i+1);
 		scanf("%d",&b[i]);
-	
-		burst[i]=b[i];//copying because we need to do furthur calculations
+		burst[i]=b[i];//copying because we need to do further calculations
 	}
 	printf("\nEnter time quantum:\t");
 	scanf("%d",&q);
 	int rem;//remaining processes
 	i=0;
-	rem=n;//to retain the value of umber of processes
+	rem=n;//to retain the value of number of processes
 	printf("\nOrder of execution :\n");
 	while(rem>0)//loop until all the processes are executed
 	{over=0;
-	if (a[i]>et){// only do processes which have been arrived at the current time
-		i++;
+	if (comp[i]==1)
+	{
+		if (i==n-1)//if i reached the max numbered process, reset i
+		{
+			i=0;
+		}
+		else 
+		{
+			i++;
+		}
+	}
+	else if (a[i]>et && comp[i]==0){// only do processes which have been arrived at the current time
+		if (i==n-1)//if i reached the max numbered process, reset i
+		{
+			i=0;
+		}
+		else 
+		{
+			i++;
+		}
 		//printf("Executing %d now\n",i);
 	}
 	else{
-		if (a[i]<=et && b[i]>0 && (b[i]-q)>0)
+		if (comp[i]==0 && a[i]<=et && b[i]>0 && (b[i]-q)>0)
 		{
 			//printf("%d executed for %d now\n",i,q);
 			et=q+et;
@@ -45,7 +65,7 @@ int main()
 			//printf("CURRENT TIME  %d\n",et);
 			printf("P[%d]\t\t",i+1);
 		}
-		else if (a[i]<=et && b[i]>0 && (b[i]-q)<=0)
+		else if (comp[i]== 0&& a[i]<=et && b[i]>0 && (b[i]-q)<=0)
 		{
 			//printf("%d executed for %d now\n",i,b[i]);
 			et=et+b[i];
@@ -62,8 +82,11 @@ int main()
 			process_wait[i]=et-burst[i]-a[i];
 			process_turnaround[i]=process_wait[i]+burst[i];
 			//printf("P[%d]\t",i+1);//for printing the order of process completion
+			complete[j]=i;
+			j++;
+			comp[i]=1;
 		}
-		if (i==n-1)
+		if (i==n-1)//if i reached the max numbered process, reset i
 		{
 			i=0;
 		}
@@ -72,6 +95,10 @@ int main()
 			i++;
 		}
 		}
+}
+printf("\n\nOrder of Completion\n");
+for (i=0;i<n;i++){
+	printf("P[%d]\t\t",complete[i]+1);
 }
 printf("\n\n\nProcess\t\t Arrival Time\t\tBurst Time\t\tWaiting Time\t\tTurnaround Time\n");
 
