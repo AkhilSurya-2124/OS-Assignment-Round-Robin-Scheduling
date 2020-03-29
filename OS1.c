@@ -15,6 +15,7 @@ int main()
 	int process_wait[n];//waiting  time of a given process
 	int comp[n]={0};
 	int i=0;
+	int completion_time[n];//to find process completion time 
 	int wait=0,turnaround=0;//wait is waiting time and turnaround is turnaround time
 	int burst[n];//to store burst time , used for calculations later
 	for ( i=0;i<n;i++)//for taking inputs
@@ -44,6 +45,7 @@ int main()
 		{
 			i++;
 		}
+		
 	}
 	else if (a[i]>et && comp[i]==0){// only do processes which have been arrived at the current time
 		if (i==n-1)//if i reached the max numbered process, reset i
@@ -85,6 +87,7 @@ int main()
 			complete[j]=i;
 			j++;
 			comp[i]=1;
+			completion_time[i]=et;//for process completion time
 		}
 		if (i==n-1)//if i reached the max numbered process, reset i
 		{
@@ -100,11 +103,11 @@ printf("\n\nOrder of Completion\n");
 for (i=0;i<n;i++){
 	printf("P[%d]\t\t",complete[i]+1);
 }
-printf("\n\n\nProcess\t\t Arrival Time\t\tBurst Time\t\tWaiting Time\t\tTurnaround Time\n");
+printf("\n\n\nProcess\t\t Arrival Time\t\tBurst Time\t\tCompletion Time\t\tWaiting Time\t\tTurnaround Time\n");
 
 for (i=0;i<n;i++)
 {
-	printf("P[%d]\t\t   %d\t\t\t     %d\t\t\t   %d\t\t\t     %d\n",i+1,a[i],burst[i],process_wait[i],process_turnaround[i]);
+	printf("P[%d]\t\t   %d\t\t\t     %d\t\t\t   %d\t\t  %d\t\t\t     %d\n",i+1,a[i],burst[i],completion_time[i],process_wait[i],process_turnaround[i]);
 }
 	float average_wait_time ;
 	average_wait_time= wait*1.0/n;
